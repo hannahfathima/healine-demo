@@ -1,0 +1,382 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins";
+}
+
+.MuiAutocomplete-root.MuiAutocomplete-hasPopupIcon.css-1qqsdnr-MuiAutocomplete-root .MuiFormControl-root.MuiFormControl-marginNormal.MuiFormControl-fullWidth {
+  margin-top: 0px;
+}
+
+.MuiTablePagination-root p {
+  margin-bottom: 0px;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: row;
+  min-height: 700px;
+
+  /* height: 90vh; */
+  /* ⭐ ADDED */
+  overflow: hidden !important;
+  /* background-color: red; */
+  /* ⭐ ADDED */
+}
+
+
+main {
+  padding: 10px;
+  width: 100%;
+
+  overflow-y: auto;
+  /* ⭐ ADDED */
+  height: 100vh;
+  /* ⭐ ADDED */
+}
+
+.icon {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  font-size: 3rem;
+  display: grid;
+  place-items: center;
+}
+
+/* Sidebar */
+.sidebar {
+  background: rgb(0, 7, 61);
+  color: white;
+  height: 100vh;
+  -ms-overflow-style: none;
+  /* IE & Edge */
+  scrollbar-width: none;
+  /* Firefox */
+
+  overflow-y: auto;
+}
+.loader-wrapper {
+  /* Existing styles */
+  position: relative;  /* Changed from absolute if it was full-screen */
+  width: 100%;
+  height: 100%;
+}
+
+.sidebar::-webkit-scrollbar {
+  display: none;
+  /* ⭐ HIDE SCROLLBAR */
+}
+
+main::-webkit-scrollbar {
+  display: none;
+  /* ⭐ HIDE SCROLLBAR */
+}
+
+main {
+  -ms-overflow-style: none;
+  /* IE/Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.sidebar-logo-wrapper {
+  width: 100%;
+  height: 68px !important;
+  /* background-color: red; */
+}
+
+.sidebar-logo {
+  width: 85%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.top_section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 10px;
+}
+
+.logo {
+  font-size: 18px;
+  line-height: 0;
+}
+
+.bars {
+  width: 30px;
+}
+
+.hide {
+  display: none;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  height: 30px;
+  padding: 10px;
+}
+
+.search input {
+  border: none;
+  margin-left: 10px;
+  border-radius: 5px;
+  background: rgb(238, 238, 238);
+
+  color: white;
+}
+
+.routes {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  font-weight: 400;
+  line-height: 13px;
+  gap: 20px;
+  font-family: "Poppins";
+
+
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  color: white;
+  gap: 12px;
+  padding: 10px 22px;
+  font-family: "Poppins";
+  font-size: 14px;
+  text-decoration: none;
+  border-radius: 8px;
+  /* ⭐ ADDED */
+  background: rgba(255, 255, 255, 0);
+  /* ⭐ ADDED */
+  border-right: 4px solid transparent;
+  transition: 0.25s ease;
+}
+
+.link:hover {
+  background: rgba(255, 255, 255, 0.1);
+  /* ⭐ UPDATED */
+  border-right: 4px solid #fff;
+}
+
+.active {
+  background: rgba(255, 255, 255, 0.15);
+  /* ⭐ UPDATED */
+  border-right: 4px solid #fff;
+}
+
+
+.link_text {
+  white-space: nowrap;
+  font-size: 14px;
+  text-decoration: none !important;
+  padding: 8px 0px;
+}
+
+.menu {
+  display: flex;
+  color: white;
+  align-items: center;
+  padding: 5px 10px;
+  border-right: 4px solid transparent;
+  transition: 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  justify-content: space-between;
+
+}
+
+.menu_item {
+  display: flex;
+  gap: 10px;
+}
+
+.menu_container {
+  display: flex;
+  flex-direction: column;
+}
+
+.menu_container .link {
+  padding-left: 20px;
+  border-bottom: #fff 0.5px solid;
+}
+
+/* ⭐ SUBMENU STYLE — CLEAR DIFFERENCE */
+.menu_container .link {
+  padding-left: 40px !important;
+  /* Indent */
+  padding-top: 8px;
+  padding-bottom: 8px;
+
+  font-size: 13px !important;
+  opacity: 0.8;
+  /* ⭐ Dimmer */
+  border: none !important;
+  /* Remove right border */
+  border-radius: 6px;
+  /* softer */
+  background: rgba(255, 255, 255, 0.06);
+  /* ⭐ Light grey bg */
+}
+
+.menu_container .link:hover {
+  background: rgba(255, 255, 255, 0.12) !important;
+  /* ⭐ Hover */
+  opacity: 1;
+}
+
+.menu_container .active {
+  background: rgba(255, 255, 255, 0.18) !important;
+  /* ⭐ Active */
+  border: none !important;
+}
+
+
+.App {
+  text-align: left;
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  /* color: white; */
+  /* background-image: url("https://tse1.mm.bing.net/th?id=OIP.F5Rm3iDuJpIvmyMJ_Np8bgHaDB&pid=Api&P=0"); */
+  /* background-image: linear-gradient(79deg, #7439db, #C66FBC 48%, #F7944D); */
+}
+
+.auth-form-container,
+.login-form,
+.register-form {
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 600px) {
+  .auth-form-container {
+    padding: 2rem;
+    border: 1px solid #000;
+    border-radius: 10px;
+    margin: 0.5rem;
+  }
+}
+
+.min-width {
+  min-width: 624px;
+}
+
+@media screen and (min-width: 500px) {
+  .min-width {
+    min-width: 400px;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .min-width {
+    min-width: 500px;
+  }
+}
+
+@media screen and (min-width: 700px) {
+  .min-width {
+    min-width: 600px;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .min-width {
+    min-width: 700px;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .min-width {
+    min-width: 800px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .min-width {
+    min-width: 924px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .min-width {
+    min-width: 1100px;
+  }
+}
+
+@media screen and (min-width: 1350px) {
+  .min-width {
+    /* min-width: 1250px; */
+  }
+}
+
+@media screen and (min-width: 1500px) {
+  .min-width {
+    min-width: 1300px;
+  }
+}
+
+@media screen and (min-width: 1800px) {
+  .min-width {
+    min-width: 1700px;
+  }
+}
+
+@media screen and (min-width: 2000px) {
+  .min-width {
+    min-width: 2000px;
+  }
+}
+
+@media screen and (min-width: 2500px) {
+  .min-width {
+    min-width: 2500px;
+  }
+}
+
+label {
+  text-align: left;
+  padding: 0.25rem 0;
+}
+
+input {
+  margin: 0.5rem 0;
+  padding: 1rem;
+  border: none;
+  border-radius: 10px;
+}
+
+button {
+  border: none;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #7439db;
+}
+
+.link-btn {
+  background: none;
+  color: white;
+  text-decoration: underline;
+}
+
+.rs-input {
+  border: 1px solid gray;
+}
+
+.SpecDropdownCheckbox1 #mui-component-select-specialities,
+.SpecDropdownCheckbox1 #mui-component-select-facilities,
+.SpecDropdownCheckbox1 #mui-component-select-services {
+  white-space: break-spaces;
+}
