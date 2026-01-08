@@ -402,9 +402,313 @@ function Profile() {
                 </Typography>
               </Grid>
             </Grid>
+            <div className={classes.buttonWrapper}>
+              {isSuperAdmin && (
+                <Button
+                  className={classes.manageRolesBtn}
+                  variant="contained"
+                  onClick={() => navigate("/register")} // ⭐ NEW
+                >
+                  Create Admin
+                </Button>
+              )}
+              {isSuperAdmin && (
+                <Button
+                  className={classes.manageRolesBtn}
+                  variant="contained"
+                  onClick={() => navigate("/manage-roles")}
+                >
+                  Manage Roles
+                </Button>
+              )}
+              <Button
+                className={classes.changeBtn}
+                variant="contained"
+                onClick={handleOpenPassword}
+              >
+                Change Password
+              </Button>
+            </div>
           </>
         )}
       </div>
+      {/* ---------------- ADMIN TABLE (Super Admin Only) ---------------- */}
+      {isSuperAdmin && (
+        <div className={classes.section}>
+          <Typography variant="h5" className={classes.sectionTitle}>
+            Admin Management
+          </Typography>
+          {loading ? (
+            <div className={classes.loadingContainer}>
+              <CircularProgress />
+            </div>
+          ) : (
+            <TableContainer component={Paper} className={classes.tableContainer}>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell className={classes.tableHeader}>ID</TableCell>
+                    <TableCell className={classes.tableHeader}>Name</TableCell>
+                    <TableCell className={classes.tableHeader}>Email</TableCell>
+                    <TableCell className={classes.tableHeader}>Role</TableCell>
+                    <TableCell className={classes.tableHeader}>Modules</TableCell>
+                    <TableCell className={classes.tableHeader}>
+                      Actions
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {filteredAdmins.length > 0 ? (
+                    filteredAdmins.map((admin) => (
+                      <TableRow key={admin.id}>
+                        <TableCell>{admin.id}</TableCell>
+                        <TableCell>{admin.name}</TableCell>
+                        <TableCell>{admin.email}</TableCell>
+                        <TableCell>
+                          <Select
+                            value={admin.role_id}
+                            disabled={admin.role_id === 1} // ⭐ SUPER ADMIN cannot be changed
+                            onChange={(e) => handleRoleChange(admin.id, e.target.value)}
+                            size="small"
+                            style={{ minWidth: 120 }}
+                          >
+                            {roles
+                              .filter((role) => role.id !== 1)
+                              .map((role) => (
+                                <MenuItem key={role.id} value={role.id}>
+                                  {role.name}
+                                </MenuItem>
+                              ))}
+                          </Select>
+                        </TableCell>
+                        <TableCell>
+                          {admin.permissions && admin.permissions.length > 0 ? (
+                            admin.permissions.map((moduleName, index) => (
+                              <Chip
+                                key={index}
+                                label={availableModules.find(m => m.value === moduleName)?.label || moduleName}
+                                size="small"
+                                className={classes.permissionChip}
+                                color="primary"
+                                variant="outlined"
+                              />
+                            ))
+                          ) : (
+                            <Typography>No modules</Typography>
+                          )}
+                        </TableCell>
+                        <TableCell>
+                          <IconButton
+                            color="primary"
+                            onClick={() => {
+                              setSelectedAdmin(admin); // ⭐ store admin
+                              setOpenResetPassword(true); // ⭐ open password modal
+                            }}
+                          >
+                            <EditIcon />
+                          </IconButton>
+                          <IconButton
+                            color="error"
+                            onClick={() => handleDeleteAdmin(admin.id)}
+                            style={{ marginLeft: "5px" }}
+                          >
+                            <DeleteOutline />
+                          </IconButton>
+                        </TableCell>
+                      </TableRow>
+                    ))
+                  ) : (
+                    <TableRow>
+                      <TableCell colSpan={6} align="center">
+                        No admins found
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          )}
+        </div>
+      )}
+      {/* ---------------- CHANGE PASSWORD DIALOG ---------------- */}
+      <Dialog open={openChangePass} onClose={handleClosePassword}>
+        <DialogTitle>Change Password</DialogTitle>
+        <DialogContent>
+          {/* CURRENT PASSWORD */}
+          <TextField
+            margin="dense"
+            label="Current Password"
+            type={showPassword.current ? "text" : "password"}
+            fullWidth
+            variant="standard"
+            value={passwordForm.currentPassword}
+            onChange={(e) =>
+              setPasswordForm({
+                ...passwordForm,
+                currentPassword: e.target.value,
+              })
+            }
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={() =>
+                      setShowPassword({
+                        ...showPassword,
+                        current: !showPassword.current,
+                      })
+                    }
+                  >
+                    {showPassword.current ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+          {/* NEW PASSWORD */}
+          <TextField
+            margin="dense"
+            label="New Password"
+            type={showPassword.new ? "text" : "password"}
+            fullWidth
+            variant="standard"
+            value={passwordForm.newPassword}
+            onChange={(e) =>
+              setPasswordForm({
+                ...passwordForm,
+                newPassword: e.target.value,
+              })
+            }
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={() =>
+                      setShowPassword({
+                        ...showPassword,
+                        new: !showPassword.new,
+                      })
+                    }
+                  >
+                    {showPassword.new ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+          {/* CONFIRM PASSWORD */}
+          <TextField
+            margin="dense"
+            label="Confirm Password"
+            type={showPassword.confirm ? "text" : "password"}
+            fullWidth
+            variant="standard"
+            value={passwordForm.confirmPassword}
+            onChange={(e) =>
+              setPasswordForm({
+                ...passwordForm,
+                confirmPassword: e.target.value,
+              })
+            }
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={() =>
+                      setShowPassword({
+                        ...showPassword,
+                        confirm: !showPassword.confirm,
+                      })
+                    }
+                  >
+                    {showPassword.confirm ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClosePassword}>Cancel</Button>
+          <Button
+            className={classes.backBtn}
+            variant="contained"
+            onClick={handlePasswordSubmit}
+          >
+            Save
+          </Button>
+        </DialogActions>
+      </Dialog>
+      {/* ---------------- PERMISSIONS DIALOG ---------------- */}
+      {/* ---------------- RESET PASSWORD DIALOG ---------------- */}
+      <Dialog
+        open={openResetPassword}
+        onClose={() => setOpenResetPassword(false)}
+        maxWidth="xs"
+        fullWidth
+      >
+        <DialogTitle>
+          Reset Password – {selectedAdmin?.name}
+        </DialogTitle>
+        <DialogContent>
+          <TextField
+            margin="dense"
+            fullWidth
+            label="New Password"
+            value={resetPassForm.newPassword}
+            onChange={(e) =>
+              setResetPassForm({ ...resetPassForm, newPassword: e.target.value })
+            }
+          />
+          <TextField
+            margin="dense"
+            fullWidth
+            label="Confirm Password"
+            value={resetPassForm.confirmPassword}
+            onChange={(e) =>
+              setResetPassForm({
+                ...resetPassForm,
+                confirmPassword: e.target.value,
+              })
+            }
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpenResetPassword(false)}>Cancel</Button>
+          <Button
+            className={classes.backBtn}
+            variant="contained"
+            onClick={async () => {
+              if (!resetPassForm.newPassword || !resetPassForm.confirmPassword) {
+                toast.error("Password fields required");
+                return;
+              }
+              if (resetPassForm.newPassword !== resetPassForm.confirmPassword) {
+                toast.error("Passwords do not match");
+                return;
+              }
+              try {
+                const payload = {
+                  user_id: selectedAdmin.id,
+                  new_password: resetPassForm.newPassword,
+                  confirm_password: resetPassForm.confirmPassword,
+                };
+                const response = await resetAdminPasswordApi(payload);
+                if (response.success) {
+                  toast.success("Password reset successfully");
+                  setOpenResetPassword(false);
+                } else {
+                  toast.error(response.message);
+                }
+              } catch (err) {
+                toast.error("Failed to reset password");
+              }
+            }}
+          >
+            Save
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }

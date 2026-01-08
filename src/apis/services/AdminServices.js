@@ -106,7 +106,7 @@ export const resetAdminPasswordApi = async (payload) => {
 export const deleteAdminApi = async (adminId) => {
     try {
         const response = await instance.delete(
-            ApiEndPoints.DELETE_ADMIN + adminId
+            `${ApiEndPoints.DELETE_ADMIN}${adminId}`
         );
         return response.data;
     } catch (error) {

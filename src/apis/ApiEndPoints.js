@@ -9,7 +9,7 @@ export const ApiEndPoints = {
   GET_ROLES: "role/roles",
   CREATE_ROLE: "role/roles",
   UPDATE_ROLE: "role/roles/",
-  DELETE_ADMIN: "auth/delete-",
+  DELETE_ADMIN: "auth/delete-admin/",
   GET_BIOMARK_FOR_SELECT: "biomarkers/get_biomarkers_for_select",
   GET_BIOMARK_GROUP_FOR_SELECT: "biomarker-groups/get_biomarker_groups_for_select",
   GET_PACKAGES_FOR_SELECT: "packages/get_packages_for_select",

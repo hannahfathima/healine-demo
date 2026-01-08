@@ -223,7 +223,7 @@ function EditEstablishment(props) {
     if (values.latitude) formData.append("latitude", values.latitude);
     if (values.longitude) formData.append("longitude", values.longitude);
     if (values.about) formData.append("about", values.about);
-    formData.append("is_24_by_7_working", values.is_24_by_7_working ? 1 : 0);
+    formData.append("is_24_by_7_working", values.is_24_by_7_working ? "true" : "false");
     if (values.expertin) formData.append("expertin", values.expertin);
     formData.append("healineVerified", values.healineVerified ? "true" : "false");
     formData.append("recommended", values.recommended ? "true" : "false");
@@ -300,7 +300,7 @@ function EditEstablishment(props) {
       );
       if (result.status === 200) {
         establishmentDetailSuccess(result.data);
-        getEstablishmentSubTypesList(result.data?.establishment_type);
+        getEstablishmentSubTypesList(result.data?.establishmentTypeInfo?.id);
         getCitiesList(result.data?.zone_id);
       } else {
         establishmentDetailFailed();
@@ -312,6 +312,8 @@ function EditEstablishment(props) {
   );
 
   const getEstablishmentSubTypesList = useCallback(async (establishmentId) => {
+    if (!establishmentId) return;
+
     const result = await fetchList(
       ApiEndPoints.GET_ESTABLISHMENT_SUB_TYPES_FOR_SELECT +
       "?establishment_id=" +
@@ -329,8 +331,11 @@ function EditEstablishment(props) {
   }, [establishmentId, getEstablishmentDetail]);
 
   const handleEstablishmentTypeChange = (estId) => {
+    // ✅ NEW: clear old sub-types before loading new ones
+    establishmentSubTypesListSuccess([]);
     getEstablishmentSubTypesList(estId);
   };
+
   const handleZoneChangeChange = (zoneId) => {
     getCitiesList(zoneId);
   };
