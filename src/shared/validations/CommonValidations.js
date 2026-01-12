@@ -306,7 +306,9 @@ export const AddEstablishmentValidator = Yup.object().shape({
   latitude: Yup.string().nullable(),
   longitude: Yup.string().nullable(),
   about: Yup.string().nullable(),
-  is_24_by_7_working: Yup.number().nullable(),
+  is_24_by_7_working: Yup.boolean()
+    .required("24 x 7 working is required")
+    .oneOf([true, false], "Invalid value"),
   healineVerified: Yup.boolean().nullable(),
   facilities: Yup.array().nullable(),
   services: Yup.array().nullable(),
@@ -346,7 +348,9 @@ export const EditEstablishmentValidator = Yup.object().shape({
     .typeError("Pin code must be a number")
     .nullable(),
   facilities: Yup.array().nullable(),
-  is_24_by_7_working: Yup.number().nullable(),
+  is_24_by_7_working: Yup.boolean()
+    .required("24 x 7 working is required")
+    .oneOf([true, false], "Invalid value"),
 });
 
 export const AddSpecialityValidator = Yup.object().shape({

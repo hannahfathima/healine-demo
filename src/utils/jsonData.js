@@ -168,10 +168,10 @@ export const monthListData = [
 export const establishment24By7Options = [
   {
     name: "Yes",
-    id: 1,
+    id: true,
   },
   {
     name: "No",
-    id: 0,
+    id: false,
   },
 ];

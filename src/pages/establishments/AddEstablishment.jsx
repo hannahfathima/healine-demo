@@ -101,7 +101,7 @@ function AddEstablishment(props) {
     longitude: "",
     recommended: false,
     services: [],
-    is_24_by_7_working: 0,
+is_24_by_7_working: false, // MUST be boolean
     healineVerified: false,
     about: "",
     topRated: false, // Add topRated
@@ -190,7 +190,7 @@ function AddEstablishment(props) {
     if (values.latitude) formData.append("latitude", values.latitude);
     if (values.longitude) formData.append("longitude", values.longitude);
     if (values.about) formData.append("about", values.about);
-    formData.append("is_24_by_7_working", values.is_24_by_7_working ? 1 : 0);
+    formData.append("is_24_by_7_working", Boolean(values.is_24_by_7_working));
     formData.append("healineVerified", values.healineVerified ? "true" : "false");
     formData.append("recommended", values.recommended ? "true" : "false");
     formData.append("topRated", values.topRated ? "true" : "false");
