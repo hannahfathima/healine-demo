@@ -101,7 +101,7 @@ function AddEstablishment(props) {
     longitude: "",
     recommended: false,
     services: [],
-is_24_by_7_working: false, // MUST be boolean
+    is_24_by_7_working: false, // MUST be boolean
     healineVerified: false,
     about: "",
     topRated: false, // Add topRated
